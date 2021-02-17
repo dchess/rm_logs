@@ -1,5 +1,6 @@
 import argparse
 import datetime
+import glob
 import logging
 import os
 import sys
@@ -7,11 +8,13 @@ import sys
 parser = argparse.ArgumentParser()
 parser.add_argument("--folder", help="Log folder path")
 parser.add_argument("--debug", help="Enable debug logging", action="store_true")
-parser.add_argument("--days", help="Delete logs older than x days")
+parser.add_argument(
+    "--days", type=int, default=30, help="Delete logs older than x days"
+)
 args, _ = parser.parse_known_args()
 
 FOLDER = args.folder
-DAYS = int(args.days) or 30
+DAYS = args.days
 MB = 1024 * 1024
 
 logging.basicConfig(
